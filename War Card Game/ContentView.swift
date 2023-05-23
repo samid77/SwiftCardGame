@@ -2,17 +2,18 @@
 //  ContentView.swift
 //  War Card Game
 //
-//  Created by Chris Ching on 2022-12-02.
+//  Created by Dimas Septyanto
 //
 
 import SwiftUI
 
 struct ContentView: View {
     
+    @State var playerCard = "card2"
+    @State var cpuCard = "card2"
     
-    
-    var playerScore = 0
-    var cpuScore = 0
+    @State var playerScore = 0
+    @State var cpuScore = 0
     
     var body: some View {
         
@@ -28,9 +29,9 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("card2")
+                    Image(playerCard)
                     Spacer()
-                    Image("card3")
+                    Image(cpuCard)
                     Spacer()
                 }
                 Spacer()
@@ -49,7 +50,7 @@ struct ContentView: View {
                             .font(.headline)
                             .padding(.bottom, 10.0)
                             
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.largeTitle)
                             
                     }
@@ -58,7 +59,7 @@ struct ContentView: View {
                         Text("CPU")
                             .font(.headline)
                             .padding(.bottom, 10.0)
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.largeTitle)
                     }
                     Spacer()
@@ -73,6 +74,19 @@ struct ContentView: View {
     
     func deal(){
         print("Deal cards")
+        let playerCardValue = Int.random(in: 2...14)
+        playerCard = "card" + String(playerCardValue)
+        
+        let cpuCardValue = Int.random(in: 2...14)
+        cpuCard = "card" + String(cpuCardValue)
+        
+        if playerCardValue > cpuCardValue {
+            playerScore += 1
+        } else if playerCardValue < cpuCardValue {
+            cpuScore += 1
+        } else {
+            print("Ties")
+        }
     }
 }
 
